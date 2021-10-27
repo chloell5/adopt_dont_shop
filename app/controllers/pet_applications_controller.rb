@@ -1,17 +1,13 @@
 class PetApplicationsController < ApplicationController
-  def index
-  end
+  def index; end
 
   def show
     @app = PetApplication.find(params[:id])
 
-    if params[:search]
-      @pets = Pet.search(params[:search])
-    end
+    @pets = Pet.search(params[:search]) if params[:search]
   end
 
-  def new
-  end
+  def new; end
 
   def create
     app = PetApplication.create(app_params)
@@ -20,7 +16,7 @@ class PetApplicationsController < ApplicationController
       flash[:success]
       redirect_to "/applications/#{app.id}"
     else
-      flash[:notice] = "Error: Please fill in all fields"
+      flash[:notice] = 'Error: Please fill in all fields'
       redirect_to '/applications/new'
     end
   end

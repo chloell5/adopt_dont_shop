@@ -74,3 +74,7 @@ input, select, textarea {
   margin-right: auto;
   width: 50%;
 }
+
+.alert{
+  margin-left: -10px !important;
+}

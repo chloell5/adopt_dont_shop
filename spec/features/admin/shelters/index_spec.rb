@@ -12,8 +12,8 @@ RSpec.describe 'admin shelter index page' do
     @pet1 = Pet.create!(adoptable: true, age: 6, breed: 'Mutt', name: 'Daisy', shelter_id: @shelter1.id)
     @pet2 = Pet.create!(adoptable: true, age: 8, breed: 'Dumpster Cat', name: 'Moxie', shelter_id: @shelter2.id)
 
-    PetApplicationPet.create(pet_application: @app1, pet: @pet1)
-    PetApplicationPet.create(pet_application: @app2, pet: @pet2)
+    PetApplicationPet.create!(pet_application: @app1, pet: @pet1)
+    PetApplicationPet.create!(pet_application: @app2, pet: @pet2)
   end
 
   it 'displays shelters in reverse alphabetical order' do

@@ -1,0 +1,17 @@
+
+<main>
+
+<h1>Shelter Admin</h1>
+
+<% @shelters.each do |shelter| %>
+  <p><%= shelter.name %></p>
+<% end %>
+
+<h2>Shelters with Pending Applications</h2>
+<section id="pending">
+<% @pending.each do |shelter| %>
+  <%= shelter.name %>
+  <br>
+<% end %>
+</section>
+</main>

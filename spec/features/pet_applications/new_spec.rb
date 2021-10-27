@@ -1,15 +1,3 @@
-# Then I am taken to the new application page where I see a form
-# When I fill in this form with my:
-#
-# Name
-# Street Address
-# City
-# State
-# Zip Code
-# And I click submit
-# Then I am taken to the new application's show page
-# And I see my Name, address information, and description of why I would make a good home
-# And I see an indicator that this application is "In Progress"
 require 'rails_helper'
 
 RSpec.describe 'application creation' do
@@ -23,7 +11,6 @@ RSpec.describe 'application creation' do
       within('main') { expect(find('form')).to have_content('City') }
       within('main') { expect(find('form')).to have_content('State') }
       within('main') { expect(find('form')).to have_content('Zip') }
-      within('main') { expect(find('form')).to have_content('Reason') }
     end
   end
 
@@ -37,7 +24,6 @@ RSpec.describe 'application creation' do
         fill_in 'City', with: 'Mesa'
         fill_in 'State', with: 'AZ'
         fill_in 'Zip', with: '85025'
-        fill_in 'Reason', with: 'Dog'
 
         click_button 'Submit'
 
@@ -47,7 +33,6 @@ RSpec.describe 'application creation' do
         expect(page).to have_content(PetApplication.last.city)
         expect(page).to have_content(PetApplication.last.state)
         expect(page).to have_content(PetApplication.last.zip)
-        expect(page).to have_content(PetApplication.last.reason)
       end
     end
   end

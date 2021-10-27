@@ -1,0 +1,14 @@
+<h1>Pending Applications</h1>
+<br>
+<% if @app.status == "Pending" %>
+  <% @app.pets.each do |pet| %>
+  <section id="approval-<%= pet.id %>"
+      <h2><%= pet.name %></h2>
+        <p><%= @app.pet_application_pets.first.status %></p>
+      <% if @app.pet_application_pets.first.status.nil? %>
+      <%= button_to "Approve Pet", "/admin/applications/#{@app.id}", method: :patch, params: {pet_id: pet.id, status: 'Approved'}%>
+        <%= button_to "Reject Pet", "/admin/applications/#{@app.id}", method: :patch, params: {pet_id: pet.id, status: 'Rejected'}%><br>
+      <% end %>
+    </section>
+  <% end %>
+<% end %>

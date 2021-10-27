@@ -1,0 +1,41 @@
+<h2>Add a Pet to this Application</h2>
+<%= form_with url: "/applications/#{@app.id}", method: :get, local: true do |f| %>
+  <%= f.label :search, 'Pet Name Search' %>
+  <br>
+  <%= f.text_field :search %>
+  <%= f.submit 'Search Pets' %>
+<% end %>
+
+<br>
+<% @pets&.each do |pet| %>
+  <h4><%= pet.name %></h4>
+  <p>Age:
+    <%= pet.age %></p>
+  <p>Breed:
+    <%= pet.breed %></p>
+  <p>Adoptable:
+    <%= pet.adoptable %></p>
+  <p>You can find
+    <%= pet.name %>
+    at
+    <%= pet.shelter_name %>!</p>
+  <%= button_to "Adopt this Pet", "/applications/#{@app.id}", method: :post, params: {pet_id: "#{pet.id}"}%>
+  <br><br>
+<% end %>
+
+
+<% if @app.pets.count > 0 %>
+  <h4>Tell us why you'd make a good owner</h4>
+  <%= form_with url: "/applications/#{@app.id}", method: :patch, local: true do |f| %>
+  <table>
+  <tr>
+    <td><%= f.label :reason %></td>
+    <td><%= f.text_area :reason %></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><%= f.submit "Submit Application" %></td>
+  </tr>
+  </table>
+  <% end %>
+<% end %>

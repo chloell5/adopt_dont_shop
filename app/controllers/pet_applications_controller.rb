@@ -21,6 +21,12 @@ class PetApplicationsController < ApplicationController
     end
   end
 
+  def update
+    app = PetApplication.find(params[:id])
+    app.update(reason: params[:reason], status: 1)
+    redirect_to "/applications/#{app.id}"
+  end
+
   private
 
   def app_params

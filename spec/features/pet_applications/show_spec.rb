@@ -59,14 +59,6 @@ RSpec.describe 'pet application show' do
 
       within('main') { expect(find('form')).to have_content('Search') }
     end
-
-    xit 'has no search functions if app is submitted' do
-      # not sure this will work until I move the form to a partial
-      @app.status = 1
-      visit "/applications/#{@app.id}"
-
-      expect(page).to_not have_content('Add a Pet to this Application')
-    end
   end
 
   context 'search functionality' do
@@ -113,6 +105,39 @@ RSpec.describe 'pet application show' do
       expect(page).to have_content(@pet.breed)
       expect(page).to have_content(@pet.adoptable)
       expect(page).to have_content(@pet.shelter.name)
+    end
+
+    it 'adds the returned pet' do
+      visit "/applications/#{@app.id}"
+
+      fill_in 'Pet Name Search', with: 'Scrappy'
+      click_on 'Search Pets'
+
+      click_button("Adopt this Pet")
+    end
+
+    it 'submits an application' do
+      visit "/applications/#{@app.id}"
+
+      fill_in 'Pet Name Search', with: 'Scrappy'
+      click_on 'Search Pets'
+
+      click_button("Adopt this Pet")
+
+      fill_in 'Reason', with: "<3"
+      click_button("Submit Application")
+      expect(current_path).to eq("/applications/#{@app.id}")
+      expect(page).to have_content("Pending")
+      expect(page).to have_content(@pet.name)
+      expect(page).to_not have_content("Add a Pet to this Application")
+      expect(page).to_not have_content("Tell us why you'd make a good owner")
+      expect(page).to have_content("<3")
+    end
+
+    it 'shows no submit if there are no pets' do
+      visit "/applications/#{@app.id}"
+      
+      expect(page).to_not have_content("Submit")
     end
   end
 end
